@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Ledger identity ─────────────────────────────────────────────────────────
+   Ink navy (uniform cloth) on cool register paper; khaki accent used only for
+   the active place and primary highlights; every quantity in tabular mono like
+   a stock register. */
+:root {
+  --ink: #1b2a41;
+  --ink-soft: #45536b;
+  --paper: #f6f5f1;
+  --card: #ffffff;
+  --rule: #ddd8ca;
+  --rule-strong: #b9b29b;
+  --khaki: #8a7b4f;
+  --khaki-soft: #f0ecdf;
+  --good: #1e7a46;
+  --warn: #a15c07;
+  --bad: #b3261e;
+  --info: #205b9f;
+}
+
+html { color-scheme: light; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+h1, h2, .display {
+  font-family: Georgia, "Times New Roman", ui-serif, serif;
+  letter-spacing: 0.01em;
+}
+
+.qty { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+
+/* Ruled card: the double top rule is the register signature. */
+.card {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-top: 3px double var(--rule-strong);
+  border-radius: 6px;
+}
+.card-pad { @apply p-4 sm:p-5; }
+
+.btn {
+  @apply inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors;
+  border: 1px solid transparent;
+}
+.btn-primary { background: var(--ink); color: #fff; }
+.btn-primary:hover { background: #24365321; background: #253654; }
+.btn-secondary { background: #fff; border-color: var(--rule-strong); color: var(--ink); }
+.btn-secondary:hover { background: var(--khaki-soft); }
+.btn-danger { background: #fff; border-color: var(--bad); color: var(--bad); }
+.btn-danger:hover { background: #fdf1f0; }
+.btn[disabled] { opacity: 0.45; pointer-events: none; }
+
+.input, select.input, textarea.input {
+  @apply w-full rounded-md px-2.5 py-1.5 text-sm bg-white;
+  border: 1px solid var(--rule-strong);
+  color: var(--ink);
+}
+.input:focus { outline: 2px solid var(--khaki); outline-offset: 1px; }
+
+label.lbl { @apply block text-xs font-medium mb-1; color: var(--ink-soft); }
+
+/* Severity stamps — small squares, not pills. */
+.stamp { @apply inline-flex items-center gap-1 px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide rounded-sm; }
+.stamp::before { content: ""; width: 7px; height: 7px; border-radius: 1px; background: currentColor; display: inline-block; }
+.stamp-CRITICAL, .stamp-URGENT { color: var(--bad); background: #fbeae9; }
+.stamp-HIGH { color: #8a3a12; background: #faeee4; }
+.stamp-WARNING, .stamp-NORMAL { color: var(--warn); background: #f8f0e0; }
+.stamp-INFO, .stamp-LOW { color: var(--info); background: #e9f0f8; }
+.stamp-OK { color: var(--good); background: #e7f3ec; }
+
+/* Status chips for documents / orders */
+.chip { @apply inline-block rounded px-2 py-0.5 text-xs font-medium; border: 1px solid var(--rule); background: #fff; color: var(--ink-soft); }
+.chip-READY_TO_POST, .chip-POSTED, .chip-DELIVERED, .chip-MATCHED, .chip-DONE { color: var(--good); border-color: #bfe0cd; background: #f2faf5; }
+.chip-NEEDS_REVIEW, .chip-PARTIALLY_DELIVERED, .chip-OPEN, .chip-QUANTITY_MISMATCH { color: var(--warn); border-color: #ecd9b6; background: #fbf6ea; }
+.chip-FAILED, .chip-OVERDUE, .chip-BLOCKED { color: var(--bad); border-color: #eec4c1; background: #fdf3f2; }
+.chip-DUPLICATE, .chip-LINKED_NO_POSTING, .chip-ARCHIVED, .chip-CANCELLED { color: var(--ink-soft); }
+.chip-PROCESSING, .chip-RECEIVED { color: var(--info); border-color: #c2d4ea; background: #f2f7fc; }
+
+/* Register table */
+.tbl { @apply w-full text-sm; }
+.tbl th { @apply text-left text-xs font-semibold uppercase tracking-wide py-2 px-2.5; color: var(--ink-soft); border-bottom: 2px solid var(--rule-strong); }
+.tbl td { @apply py-2 px-2.5 align-top; border-bottom: 1px solid var(--rule); }
+.tbl tr:hover td { background: #faf9f4; }
+.tbl td.qty, .tbl th.num { text-align: right; }
+
+.nav-item { @apply flex items-center justify-between gap-2 rounded-md px-3 py-2 text-sm; color: var(--ink-soft); }
+.nav-item:hover { background: var(--khaki-soft); color: var(--ink); }
+.nav-item.active { background: var(--khaki-soft); color: var(--ink); border-left: 3px solid var(--khaki); padding-left: 9px; font-weight: 600; }
+.nav-count { @apply text-[11px] rounded px-1.5 py-0.5 qty; background: #fff; border: 1px solid var(--rule); color: var(--ink-soft); }
+
+.section-title { @apply text-xs font-semibold uppercase tracking-widest mb-2; color: var(--khaki); }
+
+a.link { color: var(--info); text-decoration: underline; text-underline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
