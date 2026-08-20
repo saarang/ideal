@@ -21,6 +21,10 @@ jobs:
       with:
         node-version: '20' # Specify your preferred Node version
 
-    # 3. Runs the npm install command
+    # 3. Delete old lock file to ensure fresh install
+    - name: Remove old package-lock.json
+      run: rm -f package-lock.json
+
+    # 4. Runs the npm install command
     - name: Install dependencies
-      run: npm ci
+      run: npm install
