@@ -1,0 +1,26 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Downloads a copy of your code onto the GitHub runner
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # 2. Sets up Node.js on the runner
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20' # Specify your preferred Node version
+
+    # 3. Runs the npm install command
+    - name: Install dependencies
+      run: npm ci
